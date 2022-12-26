@@ -708,11 +708,11 @@ TABLE:  "LINK PROPERTY ASSIGNMENTS"
    Link=20   LinkProp=LINK5   LinkFDProp=None   PropMod=1
  
 TABLE:  "LINK PROPERTY DEFINITIONS 01 - GENERAL"
-   Link=LINK1   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Red
-   Link=LINK2   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Magenta
-   Link=LINK3   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Yellow
-   Link=LINK4   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Gray8Dark
-   Link=LINK5   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Blue
+   Link=LINK1   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Yellow
+   Link=LINK2   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Gray8Dark
+   Link=LINK3   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Blue
+   Link=LINK4   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Green
+   Link=LINK5   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0   PDM2J=0   PDM3I=0   PDM3J=0   StiffLOpt="Effective from Zero"   StiffDOpt=Initial   StiffDFact=1   Color=Cyan
  
 TABLE:  "LINK PROPERTY DEFINITIONS 10 - PLASTIC (WEN)"
    Link=LINK1   DOF=U1   Fixed=Yes
@@ -720,31 +720,31 @@ TABLE:  "LINK PROPERTY DEFINITIONS 10 - PLASTIC (WEN)"
    Link=LINK1   DOF=U3   Fixed=Yes
    Link=LINK1   DOF=R1   Fixed=Yes
    Link=LINK1   DOF=R2   Fixed=Yes
-   Link=LINK1   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=229,55584705812   Ratio=0,03   YieldExp=2
+   Link=LINK1   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=234   Ratio=0,03   YieldExp=2
    Link=LINK2   DOF=U1   Fixed=Yes
    Link=LINK2   DOF=U2   Fixed=Yes
    Link=LINK2   DOF=U3   Fixed=Yes
    Link=LINK2   DOF=R1   Fixed=Yes
    Link=LINK2   DOF=R2   Fixed=Yes
-   Link=LINK2   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=294,987891088214   Ratio=0,03   YieldExp=2
+   Link=LINK2   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=233   Ratio=0,03   YieldExp=2
    Link=LINK3   DOF=U1   Fixed=Yes
    Link=LINK3   DOF=U2   Fixed=Yes
    Link=LINK3   DOF=U3   Fixed=Yes
    Link=LINK3   DOF=R1   Fixed=Yes
    Link=LINK3   DOF=R2   Fixed=Yes
-   Link=LINK3   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=450,778344506269   Ratio=0,03   YieldExp=2
+   Link=LINK3   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=235   Ratio=0,03   YieldExp=2
    Link=LINK4   DOF=U1   Fixed=Yes
    Link=LINK4   DOF=U2   Fixed=Yes
    Link=LINK4   DOF=U3   Fixed=Yes
    Link=LINK4   DOF=R1   Fixed=Yes
    Link=LINK4   DOF=R2   Fixed=Yes
-   Link=LINK4   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=314,978919708199   Ratio=0,03   YieldExp=2
+   Link=LINK4   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=234   Ratio=0,03   YieldExp=2
    Link=LINK5   DOF=U1   Fixed=Yes
    Link=LINK5   DOF=U2   Fixed=Yes
    Link=LINK5   DOF=U3   Fixed=Yes
    Link=LINK5   DOF=R1   Fixed=Yes
    Link=LINK5   DOF=R2   Fixed=Yes
-   Link=LINK5   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=279,451240233351   Ratio=0,03   YieldExp=2
+   Link=LINK5   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=232   Ratio=0,03   YieldExp=2
  
 TABLE:  "LOAD CASE DEFINITIONS"
    Case=DEAD   Type=NonStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes   GUID=037c4929-4bdd-48ff-bbd6-a4f04c7a6cfc
