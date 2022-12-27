@@ -318,6 +318,7 @@ joints = ["2", "13", "27", "38", "49"] # joints number for story
 Load_case_name = "ARTIF1" # Nonlinear load case name
 
 # %%
+print('---------------------Our initial model :-----------------')
 benchmark = main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joints, Story_height, drift_limit)
 
 # %% Genetic Algorithm
@@ -345,7 +346,7 @@ fitness_function = fitness_func
 num_generations = 5 #iteratinos
 num_parents_mating = 2 
 
-sol_per_pop = 5 # solutions per iteration
+sol_per_pop = 10 # solutions per iteration
 num_genes = len(Y_strength) 
 
 init_range_low = 80 # lowest solution limit
@@ -353,13 +354,7 @@ init_range_high = 300 # highest solution limit
 
 parent_selection_type = "sss" # rank_selection()"sss"
 keep_parents = -1 # keep all parents
-
-initial_population=[[240, 240, 240, 240, 240],
-                    [550, 550, 550, 550, 550],
-                    [235, 235, 235, 235, 235],
-                    [862, 862, 862, 862, 862],
-                    [300, 300, 300, 300, 300]
-                    ]
+                    
 
 crossover_type = "two_points" #"uniform" #"single_point"
 
@@ -368,7 +363,7 @@ mutation_percent_genes = 60
 
 ga_instance = pygad.GA(#on_generation=on_generation,
 gene_type=int,
-initial_population = initial_population,
+#initial_population = initial_population,
                         num_generations=num_generations,
                        num_parents_mating=num_parents_mating,
                        fitness_func=fitness_function,
@@ -384,6 +379,7 @@ initial_population = initial_population,
                        )
 
 # %% Start the optimisation
+print('---------------The optimisation starts :------------------')
 ga_instance.run()
 # %% Solution
 solution, solution_fitness, solution_idx = ga_instance.best_solution()
