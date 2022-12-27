@@ -1,0 +1,44 @@
+
+
+ SAP2000 v22.0.0 Ultimate 64-bit (Analysis Build 9780/64)                       
+ File: C:\Users\Amatek\Documen...n_dissipative_KBF\SAP2000 model\V6\KBF5 (1).OUT
+                                                                     
+                                                                       
+
+ D I S P L A C E M E N T   D E G R E E S   O F   F R E E D O M
+
+         (A) = Active DOF, equilibrium equation
+         (-) = Restrained DOF, reaction computed
+         (+) = Constrained DOF
+         (>) = External substructure DOF
+         ( ) = Null DOF
+
+  JOINTS              UX  UY  UZ  RX  RY  RZ
+       1               -   -   -   -   -   -
+       2               A       A       A    
+       3               -   -   -   -   -   -
+       4               A       A       A    
+       5               -   -   -   -   -   -
+       6               A       A       A    
+       7               -   -   -   -   -   -
+       8               A       A       A    
+       9 TO      12    +       +       A    
+      11 TO      14    A       A       A    
+      15               +       +       A    
+      16 TO      19    A       A       A    
+      20 TO      22    +       +       A    
+      23 TO      25    A       A       A    
+      26               +       +       A    
+      27 TO      30    A       A       A    
+      31 TO      33    +       +       A    
+      34 TO      36    A       A       A    
+      37               +       +       A    
+      38 TO      41    A       A       A    
+      42 TO      44    +       +       A    
+      45 TO      47    A       A       A    
+      48               +       +       A    
+      49 TO      52    A       A       A    
+      53 TO      55    +       +       A    
+      56 TO      58    A       A       A    
+      59               +       +       A    
+    NULL                                    
