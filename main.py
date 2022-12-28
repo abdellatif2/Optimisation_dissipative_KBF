@@ -201,7 +201,6 @@ def get_data(L_num, save_path,Plot_graph = True):
 
 
 # %% inter story drift check
-
 def drift_check(story_ids, Story_height, drift_limit):
     """ 
     Checks the inter story drift limitation 
@@ -241,6 +240,7 @@ def drift_check(story_ids, Story_height, drift_limit):
     for i in range(1,len(U)):
         inter_story_drift = np.abs(U[i]-U[i-1])/Story_height*100
         drift.append(inter_story_drift)
+    print("Max inter story drift : ", np.max(drift), "%")
     if np.max(drift) > drift_limit : 
         Check = True
     return Check
@@ -297,7 +297,8 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
 
 
 
-# The benchmark
+
+# %% The benchmark
 
 # initial solution
 
@@ -307,15 +308,17 @@ Cycle_limit = 60 # Limit on hysteresis loops number
 
 Link_names = ['LINK1', 'LINK2','LINK3','LINK4','LINK5'] # Links names
 
-num_links = 20 # Number of links
+num_links = 40 # Number of links
 Link_labels = range(1, num_links+1)
 Link_labels = [format(x, 'd') for x in Link_labels] # generates list with Link numbers
 
 Story_height = 3.0 # story heigh in meters
 drift_limit = 5 # interstory drift in %
-joints = ["2", "13", "27", "38", "49"] # joints number for story
+joints = ["2", "16", "27", "38", "49", "60", "71", "82", "93", "104"] # joints number for story
+
 
 Load_case_name = "ARTIF1" # Nonlinear load case name
+
 
 # %%
 print('---------------------Our initial model :-----------------')
@@ -349,14 +352,14 @@ num_parents_mating = 2
 sol_per_pop = 10 # solutions per iteration
 num_genes = len(Y_strength) 
 
-init_range_low = 80 # lowest solution limit
-init_range_high = 300 # highest solution limit
+init_range_low = 150 # lowest solution limit
+init_range_high = 600 # highest solution limit
 
 parent_selection_type = "sss" # rank_selection()"sss"
 keep_parents = -1 # keep all parents
                     
 
-crossover_type = "two_points" #"uniform" #"single_point"
+crossover_type = "single_point" #"two_points" #"uniform" #"single_point"
 
 mutation_type =  "random" #"swap"
 mutation_percent_genes = 60
@@ -379,6 +382,7 @@ gene_type=int,
                        )
 
 # %% Start the optimisation
+input('Press enter to start the optimisation...')
 print('---------------The optimisation starts :------------------')
 ga_instance.run()
 # %% Solution

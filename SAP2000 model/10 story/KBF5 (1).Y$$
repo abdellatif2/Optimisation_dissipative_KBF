@@ -1,0 +1,32 @@
+  RespType: Case     ,  File: .Y06   ,  Records:                     0
+                414048
+  RespType: Displ    ,  File: .Y00   ,  Records:                     0
+                 82080
+  RespType: React    ,  File: .Y04   ,  Records:                     0
+                 82080
+  RespType: Frame    ,  File: .Y0E   ,  Records:                     0
+                 36360
+  RespType: Link     ,  File: .Y07   ,  Records:                     0
+              19229840
+  RespType: Spring   ,  File: .Y0C   ,  Records:                     0
+                  1368
+  RespType: JFJoint  ,  File: .Y01   ,  Records:                     0
+                 76608
+  RespType: JFLink   ,  File: .Y02   ,  Records:                     0
+                 53760
+  RespType: JFSpring ,  File: .Y03   ,  Records:                     0
+                 76608
+  RespType: StrainAge,  File: .Y0D   ,  Records:                     0
+                  1920
+  RespType: DisplHist,  File: .Y09   ,  Records:                     0
+                312104
+  RespType: VelocHist,  File: .Y0A   ,  Records:                     0
+                312104
+  RespType: AccelHist,  File: .Y0B   ,  Records:                     0
+                312104
+  RespType: DisplTran,  File: .Y05   ,  Records:                     0
+                 65664
+  StateType: Frame    ,  File: .Y0F   ,  Records:                     0
+                 55200
+  StateType: Link     ,  File: .Y08   ,  Records:                     0
+                 25600
