@@ -11,8 +11,35 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import pygad
-
 #import cProfile # debugging 
+
+
+# %%------------------------------------ INPUT--------------------------------------
+
+# initial solution
+
+Y_strength = [500, 500, 500, 500, 500]
+
+Cycle_limit = 80 # Limit on hysteresis loops number
+
+Link_names = ['LINK1', 'LINK2','LINK3','LINK4','LINK5'] # Links names
+
+num_links = 40 # set to 20 for 5 story # Number of links
+Link_labels = range(1, num_links+1)
+Link_labels = [format(x, 'd') for x in Link_labels] # generates list with Link numbers
+
+Story_height = 3.0 # story heigh in meters
+drift_limit = 5 # interstory drift in %
+
+Ductility_limit = 8 # Ductility limit
+
+# joints number for story , Set to ["2", "16", "27", "38", "49"] for 5 story
+
+joints = ["2", "16", "27", "38", "49", "60", "71", "82", "93", "104"] 
+
+Load_case_name = "ARTIF1" # Nonlinear load case name
+
+
 # %% SAP OAPI initiation
 SapObject = comtypes.client.GetActiveObject("CSI.SAP2000.API.SapObject")
 SapModel = SapObject.SapModel
@@ -123,69 +150,7 @@ def Area(result):
 # %% Hysteresis energy for a selected link
 
 def energy_func(result):
-    """
-    Calculates the hysteresis energy for a selected hysteresis plot
-    Arguments :
-        result : pandas DataFrame with Force-Displacment results
-    Returns :
-        E : Energy
-        c : number of loops
-    """
-    columns = result.columns
     c, result = cycle_number(result)
-    """ 
-
-    E = []
-    for i in range(1,c+1):
-        df = result[result['c']== i ].reset_index()
-        A = Area(df)
-        E.append(A)
-    E = np.max(np.array(E))
-    envlope = []
-    centroid = (sum(result.Desplacment) / len(result.Desplacment), sum(result.Force) / len(result.Desplacment))
-
-    increment = 19
-    degrees = list(range(-89, 80, increment))
-
-    x = np.linspace(np.min(result.Desplacment), np.max(result.Desplacment), 100)
-
-    for d in degrees :
-        x_45 = result[result.Desplacment>0]
-
-        y1= x*50000*np.tan(np.radians(d+increment))
-        y2= x*50000*np.tan(np.radians(d))
-        
-        y_45 = x_45[x_45.Force < x_45.Desplacment*50000*np.tan(np.radians(d+increment))]
-
-        y_45 = y_45[y_45.Force >= y_45.Desplacment*50000*np.tan(np.radians(d))].reset_index()
-
-        try :
-            y_45 = y_45.iloc[y_45.Desplacment.idxmin()]
-            envlope.append([y_45.Desplacment, y_45.Force])
-
-        except :
-            pass
-
-    for d in degrees :
-        x_45 = result[result.Desplacment < 0]
-
-        y1= x*50000*np.tan(np.radians(d+increment))
-        y2= x*50000*np.tan(np.radians(d))
-        
-        y_45 = x_45[x_45.Force > x_45.Desplacment*50000*np.tan(np.radians(d+increment))]
-
-        y_45 = y_45[y_45.Force <= y_45.Desplacment*50000*np.tan(np.radians(d))].reset_index()
-
-        try :
-            y_45 = y_45.iloc[y_45.Desplacment.idxmin()]
-            envlope.append([y_45.Desplacment, y_45.Force])
-
-        except :
-            pass
-    
-    envlope = pd.DataFrame(envlope, columns = columns)
-    E = Area(envlope)
-    """
     E = Area(result)
     return 0.5*np.abs(E), c
 
@@ -322,7 +287,7 @@ def ductility(result):
 
 
 
-def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joints, Story_height, drift_limit, save_data = False):
+def main(Y_strength, Link_names, Link_labels, Load_case_name, save_data = True):
     """
     Calculates the total hysteresis energy of the structure for a selected yield strength values
     Aeguments : 
@@ -331,9 +296,6 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
         Link_labels : Links labels
         Load_case_name : Non-linear load case name
         Cycle_limit : Limit for load-unload cycles
-        joints : Joints ids from each story
-        Story_height : story height in meters
-        drift_limit : drift limitation in %
         save_data : If True, saves the hysteresis plots for each link element in /plots
     Returns :
         Total hysteresis energy of the structure
@@ -342,34 +304,40 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
     SapModel.SetModelIsLocked(False)
     Link_list = Link_names
     Link_numbers = Link_labels
+
     for link_name in Link_list:
         link_option( Y_strength[Link_list.index(link_name)], link_name)
-    
+
+    # Run the analysis
     SapModel.Analyze.RunAnalysis()
     SapModel.Results.Setup.DeselectAllCasesAndCombosForOutput()
+    # Select load case
     SapModel.Results.Setup.SetCaseSelectedForOutput(Load_case_name)
+    # Select how to get the results (2 for Step by Step)
     SapModel.Results.Setup.SetOptionModalHist(2)
     SapModel.Results.Setup.SetOptionDirectHist(2)
 
 
     E = []
     U = []
+    C = []
     plot_dirc = os.path.join("plots/", str(Y_strength)) 
     os.makedirs(plot_dirc, exist_ok=True) 
+
     for num in Link_numbers:
         r, e, c, u = get_data(num, plot_dirc, Plot_graph= save_data)
-        if c > Cycle_limit: 
-            E_tot = 0
-            break
         if u!=1:
             U.append(u)
         E.append(e)
+        C.append(c)
+    
+    print('Fatigue cycles  : ','Max =',np.max(C),'Mean = ', np.mean(C))
+    print('Ductility : ','Max =',np.max(U),'Mean = ', np.mean(U))
+      
     E_tot = np.sum(E)
-    print('Ductility : ','Min =',np.min(U),'Mean = ', np.mean(U))
-    if drift_check(joints, Story_height, drift_limit):
-        E_tot = 0        
+    
     print('E = ',E_tot)
-    return E_tot
+    return E_tot, C, U
 
 
 
@@ -377,39 +345,30 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
 
 # %% The benchmark
 
-# initial solution
-
-Y_strength = [800, 800, 800, 800, 800]
-
-Cycle_limit = 60 # Limit on hysteresis loops number
-
-Link_names = ['LINK1', 'LINK2','LINK3','LINK4','LINK5'] # Links names
-
-num_links = 40 # Number of links
-Link_labels = range(1, num_links+1)
-Link_labels = [format(x, 'd') for x in Link_labels] # generates list with Link numbers
-
-Story_height = 3.0 # story heigh in meters
-drift_limit = 5 # interstory drift in %
-joints = ["2", "16", "27", "38", "49", "60", "71", "82", "93", "104"] # joints number for story
-
-
-Load_case_name = "ARTIF1" # Nonlinear load case name
-
-
-# %%
 print('---------------------Our initial model :-----------------')
-benchmark = main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joints, Story_height, drift_limit)
+benchmark = main(Y_strength, Link_names, Link_labels, Load_case_name)
+drift_check(joints, Story_height, drift_limit)
 
 # %% Genetic Algorithm
 def fitness_func(solution, solution_idx):
     """
     Only allows to solutions better than our initial model (benchmark) to continue to the next generation
     """
-    fitness_score = main(solution, Link_names, Link_labels, Load_case_name, Cycle_limit, joints, Story_height, drift_limit)
-    if fitness_score < benchmark :
+    fitness_score, C, U = main(solution, Link_names, Link_labels, Load_case_name)
+    if fitness_score < benchmark[0] :
         fitness_score = 0.0
+
+    if drift_check(joints, Story_height, drift_limit):
+        fitness_score = 0.0
+    
+    if np.max(C) > Cycle_limit :
+        fitness_score = 0.0
+
+    if np.max(U) > Ductility_limit : 
+        fitness_score = 0.0
+    
     print('fitness score = ',fitness_score)
+    
     return fitness_score
 
 last_fitness = 0
@@ -423,13 +382,13 @@ def on_generation(ga_instance):
 
 fitness_function = fitness_func
 
-num_generations = 5 #iteratinos
+num_generations = 7 #iteratinos
 num_parents_mating = 2 
 
 sol_per_pop = 10 # solutions per iteration
 num_genes = len(Y_strength) 
 
-init_range_low = 150 # lowest solution limit
+init_range_low = 100 # lowest solution limit
 init_range_high = 600 # highest solution limit
 
 parent_selection_type = "sss" # rank_selection()"sss"
@@ -441,9 +400,8 @@ crossover_type = "single_point" #"two_points" #"uniform" #"single_point"
 mutation_type =  "random" #"swap"
 mutation_percent_genes = 60
 
-ga_instance = pygad.GA(#on_generation=on_generation,
+ga_instance = pygad.GA(on_generation=on_generation,
 gene_type=int,
-#initial_population = initial_population,
                         num_generations=num_generations,
                        num_parents_mating=num_parents_mating,
                        fitness_func=fitness_function,
@@ -462,7 +420,10 @@ gene_type=int,
 input('Press enter to start the optimisation...')
 print('---------------The optimisation starts :------------------')
 ga_instance.run()
+
 # %% Solution
+input("Press enter to pass to the best solution ...")
+
 solution, solution_fitness, solution_idx = ga_instance.best_solution()
 print("Parameters of the best solution : {solution}".format(solution=solution))
 print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
