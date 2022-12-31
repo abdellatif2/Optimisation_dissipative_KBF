@@ -117,7 +117,7 @@ def Area(result):
     for i in range(len(result)-1):
         Area = result['Desplacment'][i]*result['Force'][i+1] - result['Desplacment'][i+1]*result['Force'][i]
         #Area = (result['Force'][i] + result['Force'][i+1]) / 2 * (result['Desplacment'][i+1]- result['Desplacment'][i])
-        Energy = Energy +  np.abs(Area)
+        Energy = Energy +  Area
     return Energy
 
 # %% Hysteresis energy for a selected link
@@ -131,15 +131,63 @@ def energy_func(result):
         E : Energy
         c : number of loops
     """
-    
+    columns = result.columns
     c, result = cycle_number(result)
+    """ 
+
     E = []
     for i in range(1,c+1):
         df = result[result['c']== i ].reset_index()
         A = Area(df)
         E.append(A)
     E = np.max(np.array(E))
-    return E, c
+    envlope = []
+    centroid = (sum(result.Desplacment) / len(result.Desplacment), sum(result.Force) / len(result.Desplacment))
+
+    increment = 19
+    degrees = list(range(-89, 80, increment))
+
+    x = np.linspace(np.min(result.Desplacment), np.max(result.Desplacment), 100)
+
+    for d in degrees :
+        x_45 = result[result.Desplacment>0]
+
+        y1= x*50000*np.tan(np.radians(d+increment))
+        y2= x*50000*np.tan(np.radians(d))
+        
+        y_45 = x_45[x_45.Force < x_45.Desplacment*50000*np.tan(np.radians(d+increment))]
+
+        y_45 = y_45[y_45.Force >= y_45.Desplacment*50000*np.tan(np.radians(d))].reset_index()
+
+        try :
+            y_45 = y_45.iloc[y_45.Desplacment.idxmin()]
+            envlope.append([y_45.Desplacment, y_45.Force])
+
+        except :
+            pass
+
+    for d in degrees :
+        x_45 = result[result.Desplacment < 0]
+
+        y1= x*50000*np.tan(np.radians(d+increment))
+        y2= x*50000*np.tan(np.radians(d))
+        
+        y_45 = x_45[x_45.Force > x_45.Desplacment*50000*np.tan(np.radians(d+increment))]
+
+        y_45 = y_45[y_45.Force <= y_45.Desplacment*50000*np.tan(np.radians(d))].reset_index()
+
+        try :
+            y_45 = y_45.iloc[y_45.Desplacment.idxmin()]
+            envlope.append([y_45.Desplacment, y_45.Force])
+
+        except :
+            pass
+    
+    envlope = pd.DataFrame(envlope, columns = columns)
+    E = Area(envlope)
+    """
+    E = Area(result)
+    return 0.5*np.abs(E), c
 
 # %% Get analysis results
 
@@ -193,11 +241,12 @@ def get_data(L_num, save_path,Plot_graph = True):
         result.to_csv(save_path_csv, index = False)
         plt.savefig(save_path)
         plt.close()
-
+    
+    u = ductility(result)
     Energy, c = energy_func(result)
 
 
-    return result, Energy, c
+    return result, Energy, c, u
 
 
 # %% inter story drift check
@@ -245,8 +294,33 @@ def drift_check(story_ids, Story_height, drift_limit):
         Check = True
     return Check
 
+# %% Ductility 
+
+def ductility(result):
+
+    a1 = result.Force[1]/result.Desplacment[1]
+    b1 = 1 
+    c1 = 0
+
+    a2 = (result.Force[result.Force.idxmax()]-result.Force[result.Force.idxmax()-1])/(result.Desplacment[result.Force.idxmax()]-result.Desplacment[result.Force.idxmax()-1])
+    b2 = 1
+    c2 = result.Force[result.Force.idxmax()] - a2 * result.Desplacment[result.Force.idxmax()]
+
+
+    Xx = (b1*c2-b2*c1)/(a1*b2-a2*b1)
+    Yy = -1*(a2*c1-a1*c2)/(a1*b2-a2*b1)
+
+
+    u = result.Desplacment[result.Force.idxmax()]/Xx
+
+    if u <1 : 
+        u = 1
+
+    return u
 
 # %% Main function
+
+
 
 def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joints, Story_height, drift_limit, save_data = False):
     """
@@ -279,16 +353,19 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
 
 
     E = []
+    U = []
     plot_dirc = os.path.join("plots/", str(Y_strength)) 
     os.makedirs(plot_dirc, exist_ok=True) 
     for num in Link_numbers:
-        r, e, c = get_data(num, plot_dirc, Plot_graph= save_data)
+        r, e, c, u = get_data(num, plot_dirc, Plot_graph= save_data)
         if c > Cycle_limit: 
             E_tot = 0
             break
+        if u!=1:
+            U.append(u)
         E.append(e)
-    E_tot = np.sum(E)    
-
+    E_tot = np.sum(E)
+    print('Ductility : ','Min =',np.min(U),'Mean = ', np.mean(U))
     if drift_check(joints, Story_height, drift_limit):
         E_tot = 0        
     print('E = ',E_tot)
@@ -302,7 +379,7 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, Cycle_limit, joint
 
 # initial solution
 
-Y_strength = [550, 550, 550, 550, 550]
+Y_strength = [800, 800, 800, 800, 800]
 
 Cycle_limit = 60 # Limit on hysteresis loops number
 
