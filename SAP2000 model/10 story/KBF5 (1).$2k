@@ -1269,15 +1269,15 @@ TABLE:  "LINK PROPERTY ASSIGNMENTS"
  
 TABLE:  "LINK PROPERTY DEFINITIONS 01 - GENERAL"
    Link=LINK1   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
-        StiffDFact=1   Color=Gray8Dark
-   Link=LINK2   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
-        StiffDFact=1   Color=Blue
-   Link=LINK3   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
-        StiffDFact=1   Color=Green
-   Link=LINK4   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
-        StiffDFact=1   Color=Cyan
-   Link=LINK5   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
         StiffDFact=1   Color=Red
+   Link=LINK2   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
+        StiffDFact=1   Color=Magenta
+   Link=LINK3   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
+        StiffDFact=1   Color=Yellow
+   Link=LINK4   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
+        StiffDFact=1   Color=Gray8Dark
+   Link=LINK5   LinkType="Plastic (Wen)"   Mass=0   Weight=0   RotInert1=0   RotInert2=0   RotInert3=0   DefLength=1   DefArea=1   PDM2I=0.5   PDM2J=0.5   PDM3I=0.5   PDM3J=0.5   StiffLOpt="Effective from Zero"   StiffDOpt=Initial _
+        StiffDFact=1   Color=Blue
  
 TABLE:  "LINK PROPERTY DEFINITIONS 10 - PLASTIC (WEN)"
    Link=LINK1   DOF=U1   Fixed=Yes

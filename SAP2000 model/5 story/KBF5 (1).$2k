@@ -725,31 +725,31 @@ TABLE:  "LINK PROPERTY DEFINITIONS 10 - PLASTIC (WEN)"
    Link=LINK1   DOF=U3   Fixed=Yes
    Link=LINK1   DOF=R1   Fixed=Yes
    Link=LINK1   DOF=R2   Fixed=Yes
-   Link=LINK1   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=500   Ratio=0.03   YieldExp=2
+   Link=LINK1   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=153   Ratio=0.03   YieldExp=2
    Link=LINK2   DOF=U1   Fixed=Yes
    Link=LINK2   DOF=U2   Fixed=Yes
    Link=LINK2   DOF=U3   Fixed=Yes
    Link=LINK2   DOF=R1   Fixed=Yes
    Link=LINK2   DOF=R2   Fixed=Yes
-   Link=LINK2   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=500   Ratio=0.03   YieldExp=2
+   Link=LINK2   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=182   Ratio=0.03   YieldExp=2
    Link=LINK3   DOF=U1   Fixed=Yes
    Link=LINK3   DOF=U2   Fixed=Yes
    Link=LINK3   DOF=U3   Fixed=Yes
    Link=LINK3   DOF=R1   Fixed=Yes
    Link=LINK3   DOF=R2   Fixed=Yes
-   Link=LINK3   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=500   Ratio=0.03   YieldExp=2
+   Link=LINK3   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=274   Ratio=0.03   YieldExp=2
    Link=LINK4   DOF=U1   Fixed=Yes
    Link=LINK4   DOF=U2   Fixed=Yes
    Link=LINK4   DOF=U3   Fixed=Yes
    Link=LINK4   DOF=R1   Fixed=Yes
    Link=LINK4   DOF=R2   Fixed=Yes
-   Link=LINK4   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=500   Ratio=0.03   YieldExp=2
+   Link=LINK4   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=243   Ratio=0.03   YieldExp=2
    Link=LINK5   DOF=U1   Fixed=Yes
    Link=LINK5   DOF=U2   Fixed=Yes
    Link=LINK5   DOF=U3   Fixed=Yes
    Link=LINK5   DOF=R1   Fixed=Yes
    Link=LINK5   DOF=R2   Fixed=Yes
-   Link=LINK5   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=500   Ratio=0.03   YieldExp=2
+   Link=LINK5   DOF=R3   Fixed=No   NonLinear=Yes   RotKE=100000   RotCE=0   RotK=100000   RotYield=168   Ratio=0.03   YieldExp=2
  
 TABLE:  "LOAD CASE DEFINITIONS"
    Case=DEAD   Type=NonStatic   InitialCond=Zero   DesTypeOpt="Prog Det"   DesignType=Dead   DesActOpt="Prog Det"   DesignAct=Non-Composite   AutoType=None   RunCase=Yes   GUID=037c4929-4bdd-48ff-bbd6-a4f04c7a6cfc

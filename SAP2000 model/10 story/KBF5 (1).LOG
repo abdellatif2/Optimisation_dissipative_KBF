@@ -6,7 +6,7 @@
 
 
 
- B E G I N   A N A L Y S I S                                2022/12/31  15:24:53
+ B E G I N   A N A L Y S I S                                2022/12/31  22:34:38
 
 
  RUNNING ANALYSIS WITHIN THE GUI PROCESS
@@ -33,7 +33,7 @@
  NUMBER OF THREADS: FORM (AUTOMATIC)       =           2
 
 
- E L E M E N T   F O R M A T I O N                                      15:24:53
+ E L E M E N T   F O R M A T I O N                                      22:34:38
 
 
  NUMBER OF COUPLED CONSTRAINT EQUATIONS    =         200
@@ -44,7 +44,7 @@
    CONSTRAINT MASTER DOF AFTER REDUCTION   =         220
 
 
- L I N E A R   E Q U A T I O N   S O L U T I O N                        15:24:54
+ L I N E A R   E Q U A T I O N   S O L U T I O N                        22:34:39
 
  FORMING STIFFNESS AT ZERO (UNSTRESSED) INITIAL CONDITIONS
 
@@ -61,7 +61,7 @@
  ---------------------------------
 
 
- L I N E A R   S T A T I C   C A S E S                                  15:24:54
+ L I N E A R   S T A T I C   C A S E S                                  22:34:40
 
  USING STIFFNESS AT ZERO (UNSTRESSED) INITIAL CONDITIONS
 
@@ -73,7 +73,7 @@
  CASE: LL
 
 
- E I G E N   M O D A L   A N A L Y S I S                                15:24:54
+ E I G E N   M O D A L   A N A L Y S I S                                22:34:41
 
  CASE: MODAL
 
@@ -96,16 +96,8 @@
  Number of eigenvalues below shift =      0
  Found mode      1 of     12:  EV= 1.6693926E+01, f=    0.650278, T=    1.537803
  Found mode      2 of     12:  EV= 1.5896199E+02, f=    2.006628, T=    0.498349
-
- Iteration    Approximations to next 5 eigenvalues, from shift EV= 0.0000000E+00
-       5   4.9629710E+02 8.9204516E+02 1.0572404E+03 1.8660092E+03 2.2923438E+03
-
  Found mode      3 of     12:  EV= 4.9629710E+02, f=    3.545610, T=    0.282039
  Found mode      4 of     12:  EV= 8.9204516E+02, f=    4.753501, T=    0.210371
-
- Iteration    Approximations to next 5 eigenvalues, from shift EV= 0.0000000E+00
-       7   1.0572404E+03 1.8660001E+03 2.2923184E+03 2.7307988E+03 2.9584319E+03
-
  Found mode      5 of     12:  EV= 1.0572404E+03, f=    5.174960, T=    0.193238
  Found mode      6 of     12:  EV= 1.8660000E+03, f=    6.875051, T=    0.145453
  Found mode      7 of     12:  EV= 2.2923182E+03, f=    7.620046, T=    0.131233
@@ -120,7 +112,7 @@
  NUMBER OF STIFFNESS SHIFTS                =           0
 
 
- N O N L I N E A R   M O D A L   H I S T O R Y   A N A L Y S I S        15:24:54
+ N O N L I N E A R   M O D A L   H I S T O R Y   A N A L Y S I S        22:34:42
 
  CASE: ARTIF1
  ANALYSIS TYPE                             =   NONLINEAR
@@ -1179,7 +1171,7 @@
  LENGTH OF SHORTEST ATTEMPTED SUB-STEP (T) =    0.001562
 
 
- N O N L I N E A R   S T A T I C   A N A L Y S I S                      15:24:56
+ N O N L I N E A R   S T A T I C   A N A L Y S I S                      22:34:46
 
  CASE: DEAD
 
@@ -1213,15 +1205,15 @@
  NUMBER OF STIFFNESS FORMATIONS/SOLUTIONS  =           2
 
  TIME FOR INITIALIZING ANALYSIS            =        0.00
- TIME FOR CONTROLLING ANALYSIS             =        0.07
- TIME FOR UPDATING LOADS AND STATE         =        0.01
+ TIME FOR CONTROLLING ANALYSIS             =        0.04
+ TIME FOR UPDATING LOADS AND STATE         =        0.16
  TIME FOR FORMING STIFFNESS MATRIX         =        0.00
- TIME FOR SOLVING STIFFNESS MATRIX         =        0.14
+ TIME FOR SOLVING STIFFNESS MATRIX         =        0.58
  TIME FOR CALCULATING DISPLACEMENTS        =        0.01
  TIME FOR DETERMINING EVENTS               =        0.00
- TIME FOR SAVING RESULTS                   =        0.05
+ TIME FOR SAVING RESULTS                   =        0.01
                                                ----------
- TOTAL TIME FOR THIS ANALYSIS              =        0.28
+ TOTAL TIME FOR THIS ANALYSIS              =        0.80
 
 
- A N A L Y S I S   C O M P L E T E                          2022/12/31  15:24:58
+ A N A L Y S I S   C O M P L E T E                          2022/12/31  22:34:48

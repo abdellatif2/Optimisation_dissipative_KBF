@@ -201,12 +201,15 @@ def get_data(L_num, save_path,Plot_graph = True):
     if Plot_graph:
         plt.plot(result['Desplacment'], result['Force'])
         plt.grid()
+        save_path = os.path.join(save_path, 'plots') 
+        os.makedirs(save_path, exist_ok=True) 
         save_path_csv = save_path + '/'+ str(L_num) + ".csv"
         save_path = save_path + '/'+ str(L_num) + ".png"
         result.to_csv(save_path_csv, index = False)
         plt.savefig(save_path)
         plt.close()
-    
+ 
+        
     u = ductility(result)
     Energy, c = energy_func(result)
 
@@ -215,7 +218,7 @@ def get_data(L_num, save_path,Plot_graph = True):
 
 
 # %% inter story drift check
-def drift_check(story_ids, Story_height, drift_limit):
+def drift_check(story_ids, Story_height, drift_limit, Y_strength):
     """ 
     Checks the inter story drift limitation 
     Arguments : 
@@ -254,7 +257,11 @@ def drift_check(story_ids, Story_height, drift_limit):
     for i in range(1,len(U)):
         inter_story_drift = np.abs(U[i]-U[i-1])/Story_height*100
         drift.append(inter_story_drift)
-    print("Max inter story drift : ", np.max(drift), "%")
+    drift_pd = pd.DataFrame(list(zip(range(1, len(drift)+1), drift)),  columns= ['Story', 'Drift'])
+    print(drift_pd)
+    save_path_csv = os.path.join("results/", str(Y_strength))  + "/Drift.csv"
+    drift_pd.to_csv(save_path_csv, index = False)
+    # print("Max inter story drift : ", np.max(drift), "%")
     if np.max(drift) > drift_limit : 
         Check = True
     return Check
@@ -321,7 +328,7 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, save_data = True):
     E = []
     U = []
     C = []
-    plot_dirc = os.path.join("plots/", str(Y_strength)) 
+    plot_dirc = os.path.join("results/", str(Y_strength)) 
     os.makedirs(plot_dirc, exist_ok=True) 
 
     for num in Link_numbers:
@@ -330,14 +337,35 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, save_data = True):
             U.append(u)
         E.append(e)
         C.append(c)
+    C_max = []
+    for i in range(0, len(C)):
+        if i % 4 ==0:
+            C_max.append(np.max(C[i:i+4]))
     
-    print('Fatigue cycles  : ','Max =',np.max(C),'Mean = ', np.mean(C))
-    print('Ductility : ','Max =',np.max(U),'Mean = ', np.mean(U))
-      
+    C_max = pd.DataFrame(list(zip(range(1, len(C_max)+1), C_max)), columns= ['Story', 'Max Fatigue cycles'])
+    print(C_max)
+    save_path_csv = plot_dirc  + "/Max_Fatigue_cycles.csv"
+    C_max.to_csv(save_path_csv, index = False)
+
+    U_max = []
+    for i in range(0, len(U)):
+        if i % 4 ==0:
+            U_max.append(np.max(U[i:i+4]))
+    
+    U_max = pd.DataFrame(list(zip(range(1, len(U_max)+1), U_max)), columns= ['Story', 'Max Ductility'])
+    print(U_max)
+    save_path_csv = plot_dirc  + "/Max_Ductility.csv"
+    U_max.to_csv(save_path_csv, index = False)
+
+
+    #print('Fatigue cycles  : ','Max =',np.max(C),'Mean = ', np.mean(C))
+    #print('Ductility : ','Max =',np.max(U),'Mean = ', np.mean(U))
+    
+    drift_Check = drift_check(joints, Story_height, drift_limit, Y_strength)
     E_tot = np.sum(E)
     
     print('E = ',E_tot)
-    return E_tot, C, U
+    return E_tot, C, U, drift_Check
 
 
 
@@ -347,18 +375,18 @@ def main(Y_strength, Link_names, Link_labels, Load_case_name, save_data = True):
 
 print('---------------------Our initial model :-----------------')
 benchmark = main(Y_strength, Link_names, Link_labels, Load_case_name)
-drift_check(joints, Story_height, drift_limit)
 
 # %% Genetic Algorithm
 def fitness_func(solution, solution_idx):
     """
     Only allows to solutions better than our initial model (benchmark) to continue to the next generation
     """
-    fitness_score, C, U = main(solution, Link_names, Link_labels, Load_case_name)
+    fitness_score, C, U,  drift_Check= main(solution, Link_names, Link_labels, Load_case_name)
+    
     if fitness_score < benchmark[0] :
         fitness_score = 0.0
 
-    if drift_check(joints, Story_height, drift_limit):
+    if drift_Check:
         fitness_score = 0.0
     
     if np.max(C) > Cycle_limit :
@@ -388,7 +416,7 @@ num_parents_mating = 2
 sol_per_pop = 10 # solutions per iteration
 num_genes = len(Y_strength) 
 
-init_range_low = 100 # lowest solution limit
+init_range_low = 80 # lowest solution limit
 init_range_high = 600 # highest solution limit
 
 parent_selection_type = "sss" # rank_selection()"sss"
@@ -413,13 +441,69 @@ gene_type=int,
                        keep_parents=keep_parents,
                        crossover_type=crossover_type,
                        mutation_type=mutation_type,
-                       mutation_percent_genes=mutation_percent_genes
-                       )
+                       mutation_percent_genes=mutation_percent_genes,
+                       save_solutions=True)
 
 # %% Start the optimisation
-input('Press enter to start the optimisation...')
+#input('Press enter to start the optimisation...')
 print('---------------The optimisation starts :------------------')
 ga_instance.run()
+
+# %% Solutions
+
+plot_dirc = os.path.join("results/", "Final_results") 
+os.makedirs(plot_dirc, exist_ok=True) 
+
+Solutions_fitness = ga_instance.solutions_fitness
+Solutions_fitness = pd.DataFrame(list(zip(range(1, len(Solutions_fitness)+1), Solutions_fitness)), columns= ['Number', 'Fitness'])
+Solutions_fitness.loc[-1]=[0, benchmark[0]]
+Solutions_fitness.index = Solutions_fitness.index + 1
+Solutions_fitness = Solutions_fitness.sort_index()
+Solutions_fitness = Solutions_fitness[Solutions_fitness.Fitness !=0]
+Solutions_fitness.reset_index(drop=True, inplace=True)
+
+save_path_csv = plot_dirc  + "/Solutions_Fitness.csv"
+Solutions_fitness.to_csv(save_path_csv, index = False)
+
+save_path = plot_dirc + '/Solutions_Fitness' + ".png"
+
+first_point = Solutions_fitness.iloc[0].Fitness
+plt.plot(Solutions_fitness.Number, Solutions_fitness.Fitness)
+plt.plot(0, first_point, 'o', markersize = 10 )
+plt.text(0, first_point, 'Initial model', horizontalalignment='center',
+     verticalalignment='center')
+plt.grid()
+plt.xlabel("Solutions")
+plt.ylabel("Fitness score")
+plt.savefig(save_path)
+plt.close()
+
+# %% best solutions 
+
+Best_fitness = ga_instance.best_solutions_fitness
+Best_fitness = pd.DataFrame(list(zip(range(1, len(Best_fitness)+1), Best_fitness)), columns= ['Generation', 'Fitness'])
+Best_fitness.loc[-1]=[0, benchmark[0]]
+Best_fitness.index = Best_fitness.index + 1
+Best_fitness = Best_fitness.sort_index()
+Best_fitness = Best_fitness[Best_fitness.Fitness !=0]
+Best_fitness.reset_index(drop=True, inplace=True)
+
+save_path_csv = plot_dirc  + "/Generations_Fitness.csv"
+Best_fitness.to_csv(save_path_csv, index = False)
+
+save_path = plot_dirc + '/Generations_Fitness' + ".png"
+
+first_point = Best_fitness.iloc[0].Fitness
+plt.plot(Best_fitness.Generation, Best_fitness.Fitness)
+plt.plot(0, first_point, 'o', markersize = 10 )
+plt.text(0, first_point, 'Initial model', horizontalalignment='center',
+     verticalalignment='center')
+plt.grid()
+plt.xlabel("Generations")
+plt.ylabel("Fitness score")
+plt.savefig(save_path)
+plt.close()
+
 
 # %% Solution
 input("Press enter to pass to the best solution ...")
