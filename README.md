@@ -1,9 +1,13 @@
-
 # Optimisation dissipative KBF
 
 ## Project Overview
-This repository focuses on the optimization of dissipative Kinematic Beam Frames (KBF). 
-It explores methods for optimizing these structures in civil engineering applications, with a focus on computational methods for stability and performance.
+This repository contains the code for the article:
+
+**Bourahla, N., & Hannachi, A. (2024). Genetic Algorithm-Based Optimization of Dissipative Knee Braced Steel Frames.**  
+In A.N. Sigaher, F. Sutcu, & C. Yenidogan (Eds.), *Seismic Isolation, Energy Dissipation, and Active Vibration Control of Structures* (Vol. 412, Lecture Notes in Civil Engineering). Springer, Cham.  
+[https://doi.org/10.1007/978-3-031-71048-3_12](https://doi.org/10.1007/978-3-031-71048-3_12)
+
+The repository focuses on optimizing dissipative Kinematic Beam Frames (KBF) using genetic algorithms (GA) in civil engineering applications, specifically for stability and energy dissipation in seismic design.
 
 ## Installation Instructions
 To use this repository, clone it using the following command:
