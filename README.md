@@ -7,7 +7,7 @@ This repository contains the code for the article:
 In A.N. Sigaher, F. Sutcu, & C. Yenidogan (Eds.), *Seismic Isolation, Energy Dissipation, and Active Vibration Control of Structures* (Vol. 412, Lecture Notes in Civil Engineering). Springer, Cham.  
 [https://doi.org/10.1007/978-3-031-71048-3_12](https://doi.org/10.1007/978-3-031-71048-3_12)
 
-The repository focuses on optimizing dissipative Kinematic Beam Frames (KBF) using genetic algorithms (GA) in civil engineering applications, specifically for stability and energy dissipation in seismic design.
+The repository focuses on optimizing dissipative Knee Braced Frames (KBF) using genetic algorithms (GA) in civil engineering applications, specifically for stability and energy dissipation in seismic design.
 
 ## Installation Instructions
 To use this repository, clone it using the following command:
