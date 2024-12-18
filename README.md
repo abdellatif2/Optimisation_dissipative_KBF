@@ -29,5 +29,3 @@ pip install -r requirements.txt
 
 Refer to the comments in the code for further details on the specific methods used.
 
-## License
-No license has been specified for this repository. Please ensure you have permission to use and modify the code.
