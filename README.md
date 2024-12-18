@@ -21,6 +21,7 @@ Then, install the required dependencies from the requirements.txt file:
 ```
 pip install -r requirements.txt
 ```
+**Note**: This project requires SAP2000 version 21 or newer for integration with the optimization algorithms.
 
 ## Usage
 1. Open and run the Jupyter Notebook `main.ipynb` for an interactive approach.
